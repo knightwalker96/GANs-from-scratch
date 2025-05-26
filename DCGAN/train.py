@@ -22,7 +22,6 @@ FEATURES_GEN = 64
 FEATURES_DISC = 64
 IMAGE_SAVE_FREQ = 1  
 
-# Directories for saving outputs
 output_dir = "output"
 image_dir = os.path.join(output_dir, "images")
 checkpoint_dir = os.path.join(output_dir, "checkpoints")
@@ -52,7 +51,6 @@ fixed_noise = torch.randn((32, Z_DIM, 1, 1)).to(device)
 gen_losses = []
 disc_losses = []
 
-# Checkpoint paths
 checkpoint_path = os.path.join(checkpoint_dir, "latest_checkpoint.pth")
 best_checkpoint_path = os.path.join(checkpoint_dir, "best_checkpoint.pth")
 
@@ -103,7 +101,6 @@ for epoch in range(start_epoch, NUM_EPOCHS):
         loss_gen.backward()
         gen_opt.step()
 
-        # Accumulate losses for averaging
         epoch_gen_loss += loss_gen.item()
         epoch_disc_loss += loss_disc.item()
         num_batches += 1

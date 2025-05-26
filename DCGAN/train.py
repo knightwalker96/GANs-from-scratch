@@ -80,7 +80,6 @@ for epoch in range(start_epoch, NUM_EPOCHS):
     epoch_disc_loss = 0
     num_batches = 0
 
-    # Use tqdm to track progress and time
     for batch_idx, (real, _) in tqdm(enumerate(loader), total=len(loader), desc=f"Epoch {epoch+1}/{NUM_EPOCHS}"):
         real = real.to(device)
         current_batch_size = real.shape[0]  # Handle last batch size
@@ -109,26 +108,22 @@ for epoch in range(start_epoch, NUM_EPOCHS):
         epoch_disc_loss += loss_disc.item()
         num_batches += 1
 
-        # Print losses when batch_idx == 0
         if batch_idx == 0:
             print(
                 f"Epoch [{epoch+1}/{NUM_EPOCHS}] Batch 0 | "
                 f"Loss D: {loss_disc:.4f}, Loss G: {loss_gen:.4f}"
             )
 
-    # Compute average losses for the epoch
     avg_gen_loss = epoch_gen_loss / num_batches
     avg_disc_loss = epoch_disc_loss / num_batches
     gen_losses.append(avg_gen_loss)
     disc_losses.append(avg_disc_loss)
 
-    # Print average losses for the epoch
     print(
         f"Epoch [{epoch+1}/{NUM_EPOCHS}] | "
         f"Avg Loss D: {avg_disc_loss:.4f}, Avg Loss G: {avg_gen_loss:.4f}"
     )
 
-    # Save images every IMAGE_SAVE_FREQ epochs
     if (epoch + 1) % IMAGE_SAVE_FREQ == 0 or epoch == NUM_EPOCHS - 1:
         with torch.no_grad():
             fake = gen(fixed_noise)
@@ -141,7 +136,6 @@ for epoch in range(start_epoch, NUM_EPOCHS):
             fake_img.save(os.path.join(image_dir, f"fake_epoch_{epoch+1}.png"))
             real_img.save(os.path.join(image_dir, f"real_epoch_{epoch+1}.png"))
 
-    # Save checkpoint
     checkpoint = {
         'epoch': epoch,
         'gen_state_dict': gen.state_dict(),
@@ -160,7 +154,6 @@ for epoch in range(start_epoch, NUM_EPOCHS):
         torch.save(checkpoint, best_checkpoint_path)
         print(f"Saved best model at epoch {epoch+1} with generator loss {best_gen_loss:.4f}")
 
-# Save losses to a JSON file for plotting later
 losses_dict = {
     'generator_losses': gen_losses,
     'discriminator_losses': disc_losses,
@@ -168,4 +161,4 @@ losses_dict = {
 with open(os.path.join(output_dir, 'losses.json'), 'w') as f:
     json.dump(losses_dict, f, indent=4)
 
-print("Training completed! Losses saved to output/losses.json")
+print("Training completed. Losses saved to output/losses.json")

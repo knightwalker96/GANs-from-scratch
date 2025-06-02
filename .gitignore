@@ -1,2 +1,4 @@
 DCGAN/output/
 DCGAN/__pycache__/
+Wasserten GAN/__pycache__/
+Conditional GAN/__pycache__/

@@ -227,26 +227,22 @@ Because the gradient penalty requires per-sample statistics, **Batch Normalizati
 ---
 
 ## Project Structure
+
+```
 GANs-from-scratch/
 ├── Simple GAN/
-│ └── simple_GAN.py # Standalone training script
+│   └── simple_GAN.py          # Standalone training script
 ├── DCGAN/
-│ ├── model.py # Generator & Discriminator
-│ └── train.py # Training loop
+│   ├── model.py               # Generator & Discriminator
+│   └── train.py               # Training loop
 ├── Conditional GAN/
-│ ├── model.py # Conditional Generator & Discriminator
-│ └── train.py # Training loop with class conditioning
+│   ├── model.py               # Conditional Generator & Discriminator
+│   └── train.py               # Training loop with class conditioning
 ├── Wasserten GAN/
-│ ├── model.py # WGAN architectures
-│ └── train.py # Supports --formulation original|improved
+│   ├── model.py               # WGAN architectures
+│   └── train.py               # Supports --formulation original|improved
 └── requirements.txt
-
-
-Each implementation saves:
-- `outputs/` — fake and real image grids per epoch
-- `checkpoints/latest_checkpoint.pth` — resume-able state
-- `checkpoints/best_checkpoint.pth` — best generator checkpoint
-- `losses.json` — per-epoch generator and discriminator losses
+```
 
 ---
 
